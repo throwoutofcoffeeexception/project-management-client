@@ -1,23 +1,41 @@
-import logo from './logo.svg';
+import { useEffect, useState } from "react"
 import './App.css';
+import Header from './components/Header';
+import HomePage from './components/HomePage';
+import { Route, Routes } from 'react-router';
+import axios from "axios";
+import ProjectsList from "./components/ProjectsList";
+import CreateProject from "./components/CreateProject";
+
 
 function App() {
+
+  const [projectsArr, setProjectsArr] = useState([]);
+
+  useEffect( () => {
+    fetchProjects();
+  }, []);
+
+
+  const fetchProjects = () => {
+    axios.get(`${process.env.REACT_APP_API_URL}/projects`)
+      .then(response => {
+        setProjectsArr(response.data);
+      })
+      .catch(e => console.log("error getting list of projects...", e));
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={ <HomePage /> } />
+        <Route path="/projects" element={ <ProjectsList projects={projectsArr} /> } />
+        <Route path="/projects/create" element={ <CreateProject updateProjects={fetchProjects} />} />
+      </Routes>
+
+      
     </div>
   );
 }
