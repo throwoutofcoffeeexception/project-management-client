@@ -11,6 +11,7 @@ export default function Header() {
 
         <NavLink to="/">Home</NavLink> |
 
+
         { isLoggedIn && 
           <>
             <NavLink to="/projects">Projects</NavLink> |

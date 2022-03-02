@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router';
 import axios from "axios";
 import ProjectsList from "./components/ProjectsList";
 import CreateProject from "./components/CreateProject";
+import SignupPage from "./components/SignupPage";
 
 
 function App() {
@@ -33,6 +34,9 @@ function App() {
         <Route path="/" element={ <HomePage /> } />
         <Route path="/projects" element={ <ProjectsList projects={projectsArr} /> } />
         <Route path="/projects/create" element={ <CreateProject updateProjects={fetchProjects} />} />
+        
+        <Route path="/signup" element={ <SignupPage /> } />
+        
       </Routes>
 
       
