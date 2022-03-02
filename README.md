@@ -1,17 +1,21 @@
 # Project Management Client
 
+- connect frontend with backend
+- learn how to use UseContext for auth
+- learn token-based authentication in frontend
+
 ## To-Do
 
-- [x] Initial structure (<Header />, <HomePage />)
-- [x] <ProjectsList />
-- [x] <CreateProject />
-- [ ] <ProjectDetails />
-- [ ] <EditProject />
-- [ ] <CreateTask />
+- [x] Initial structure (Header, HomePage)
+- [x] ProjectsList
+- [x] CreateProject
+- [ ] ProjectDetails
+- [ ] EditProject
+- [ ] CreateTask
 
 
 ## Improvements / extra iterations:
-- move <CreateProject /> as child of <ProjectsList />
+- move CreateProject as child of ProjectsList
 - confirmation to delete
 - toasts (eg. react-toastify)
 - reuse CreateProject & EditProject
