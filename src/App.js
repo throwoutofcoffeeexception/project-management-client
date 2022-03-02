@@ -8,6 +8,7 @@ import ProjectsList from "./components/ProjectsList";
 import CreateProject from "./components/CreateProject";
 import SignupPage from "./components/SignupPage";
 import LoginPage from "./components/LoginPage";
+import IsPrivate from "./components/IsPrivate";
 
 
 function App() {
@@ -33,12 +34,22 @@ function App() {
 
       <Routes>
         <Route path="/" element={ <HomePage /> } />
-        <Route path="/projects" element={ <ProjectsList projects={projectsArr} /> } />
-        <Route path="/projects/create" element={ <CreateProject updateProjects={fetchProjects} />} />
+        
+        <Route path="/projects" element={ 
+          <IsPrivate>
+            <ProjectsList projects={projectsArr} /> 
+          </IsPrivate>
+        } />
+
+        <Route path="/projects/create" element={
+          <IsPrivate>
+            <CreateProject updateProjects={fetchProjects} />
+          </IsPrivate>
+        } />
         
         <Route path="/signup" element={ <SignupPage /> } />
         <Route path="/login" element={ <LoginPage /> } />
-        
+
       </Routes>
 
       

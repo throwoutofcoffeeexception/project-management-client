@@ -47,7 +47,7 @@ function LoginPage(props) {
           Username:
           <input
             type="text"
-            required="true"
+            required={true}
             name="username"
             value={username}
             onChange={handleUsername}
@@ -58,7 +58,7 @@ function LoginPage(props) {
           Password:
           <input
             type="password"
-            required="true"
+            required={true}
             name="password"
             value={password}
             onChange={handlePassword}
