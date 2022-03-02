@@ -17,11 +17,13 @@ function App() {
 
   const [projectsArr, setProjectsArr] = useState([]);
 
-  const { getToken } = useContext(AuthContext);
+  const { isLoggedIn, getToken } = useContext(AuthContext);
 
   useEffect( () => {
-    fetchProjects();
-  }, []);
+    if (isLoggedIn) {
+      fetchProjects();
+    }
+  }, [isLoggedIn]);
 
 
   const fetchProjects = () => {

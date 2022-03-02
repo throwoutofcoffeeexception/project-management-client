@@ -3,8 +3,6 @@ import { Link } from "react-router-dom"
 
 export default function ProjectsList(props) {
 
-  console.log(props.projects)
-
   return (
     <div className="ProjectsList">
       <h1>Lif of Projects</h1>
