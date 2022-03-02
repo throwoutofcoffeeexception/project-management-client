@@ -10,7 +10,7 @@ function LoginPage(props) {
 
   const navigate = useNavigate();
 
-  const { storeToken } = useContext(AuthContext);
+  const { storeToken, authenticateUser } = useContext(AuthContext);
 
   const handleUsername = (e) => setUsername(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -26,6 +26,7 @@ function LoginPage(props) {
     axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, userDetails)
       .then( response => {
         storeToken(response.data.authToken);
+        authenticateUser();
         navigate("/");
       })
       .catch(error => {
