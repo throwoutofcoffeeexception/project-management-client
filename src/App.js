@@ -7,6 +7,7 @@ import axios from "axios";
 import ProjectsList from "./components/ProjectsList";
 import CreateProject from "./components/CreateProject";
 import SignupPage from "./components/SignupPage";
+import LoginPage from "./components/LoginPage";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Route path="/projects/create" element={ <CreateProject updateProjects={fetchProjects} />} />
         
         <Route path="/signup" element={ <SignupPage /> } />
+        <Route path="/login" element={ <LoginPage /> } />
         
       </Routes>
 

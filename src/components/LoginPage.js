@@ -1,22 +1,18 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
-
-function SignupPage(props) {
-
+function LoginPage(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const [errorMessage, setErrorMessage] = useState(undefined);
 
-
   const navigate = useNavigate();
-  
+
   const handleUsername = (e) => setUsername(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
-  const handleSignupSubmit = (e) => {
+  const handleLoginSubmit = (e) => {
     e.preventDefault();
 
     const userDetails = {
@@ -24,33 +20,29 @@ function SignupPage(props) {
       password
     }
 
-    axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, userDetails)
-      .then( () => {
-        navigate("/login");
+    axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, userDetails)
+      .then(() => {
+        navigate("/");
       })
-      .catch( error => {
+      .catch(error => {
         const msg = error.response.data.errorMessage;
-        console.log("error creating new user...", msg);
+        console.log("error loggin in...", msg);
         setErrorMessage(msg);
       });
-
   };
 
-
   return (
-    <div className="SignupPage">
-      <h1>Sign Up</h1>
-
+    <div className="LoginPage">
+      <h1>Login</h1>
 
       {errorMessage && <p className="error">{errorMessage}</p>}
 
-
-      <form onSubmit={handleSignupSubmit}>
-        
+      <form onSubmit={handleLoginSubmit}>
         <label>
           Username:
           <input
             type="text"
+            required="true"
             name="username"
             value={username}
             onChange={handleUsername}
@@ -61,19 +53,22 @@ function SignupPage(props) {
           Password:
           <input
             type="password"
+            required="true"
             name="password"
             value={password}
             onChange={handlePassword}
           />
         </label>
 
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
       </form>
 
-      <p>Already have account?</p>
-      <Link to={"/login"}> Login</Link>
+
+      <p>Don't have an account yet?</p>
+      <Link to={"/signup"}> Sign Up</Link>
+
     </div>
   )
 }
 
-export default SignupPage;
+export default LoginPage;
