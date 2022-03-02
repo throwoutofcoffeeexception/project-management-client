@@ -18,6 +18,10 @@ function AuthProviderWrapper(props) {
     localStorage.setItem('authToken', token);
   }
 
+  const getToken = () => {
+    return localStorage.getItem("authToken");
+  }
+
   const removeToken = () => {
     localStorage.removeItem("authToken");
   }
@@ -60,7 +64,7 @@ function AuthProviderWrapper(props) {
   }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, isLoading, user, storeToken, authenticateUser, logOutUser }}>
+    <AuthContext.Provider value={{ isLoggedIn, isLoading, user, storeToken, getToken, authenticateUser, logOutUser }}>
       {props.children}
     </AuthContext.Provider>
   )

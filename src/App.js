@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import './App.css';
 import Header from './components/Header';
 import HomePage from './components/HomePage';
@@ -9,11 +9,15 @@ import CreateProject from "./components/CreateProject";
 import SignupPage from "./components/SignupPage";
 import LoginPage from "./components/LoginPage";
 import IsPrivate from "./components/IsPrivate";
+import IsAnon from "./components/IsAnon";
+import { AuthContext } from "./context/auth.context"
 
 
 function App() {
 
   const [projectsArr, setProjectsArr] = useState([]);
+
+  const { getToken } = useContext(AuthContext);
 
   useEffect( () => {
     fetchProjects();
@@ -21,7 +25,13 @@ function App() {
 
 
   const fetchProjects = () => {
-    axios.get(`${process.env.REACT_APP_API_URL}/projects`)
+
+    const storedToken = getToken();
+
+    axios.get(
+        `${process.env.REACT_APP_API_URL}/projects`,
+        { headers: { Authorization: `Bearer ${storedToken}` } }
+      )
       .then(response => {
         setProjectsArr(response.data);
       })
@@ -47,12 +57,20 @@ function App() {
           </IsPrivate>
         } />
         
-        <Route path="/signup" element={ <SignupPage /> } />
-        <Route path="/login" element={ <LoginPage /> } />
+        <Route path="/signup" element={ 
+          <IsAnon>
+            <SignupPage />
+          </IsAnon> 
+        } />
+
+        <Route path="/login" element={ 
+          <IsAnon>
+            <LoginPage />
+          </IsAnon> 
+        } />
 
       </Routes>
 
-      
     </div>
   );
 }
