@@ -9,6 +9,28 @@ function AuthProviderWrapper(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
 
+    const authenticateUser = () => {
+    const storedToken = localStorage.getItem('authToken');
+
+    if (storedToken) {
+      // We must send the JWT token in the request's "Authorization" Headers
+      axios.get(
+        `${process.env.REACT_APP_API_URL}/auth/verify`,
+        { headers: { Authorization: `Bearer ${storedToken}` } }
+      )
+        .then((response) => {
+          storeLoginDetails(response.data);
+        })
+        .catch((error) => {    
+          resetLoginDetails();
+        });
+    } else {
+      resetLoginDetails();
+    }
+  }
+
+  
+  
   useEffect( () => {
     authenticateUser();
   }, []);
@@ -31,25 +53,6 @@ function AuthProviderWrapper(props) {
     authenticateUser();
   }
 
-  const authenticateUser = () => {
-    const storedToken = localStorage.getItem('authToken');
-
-    if (storedToken) {
-      // We must send the JWT token in the request's "Authorization" Headers
-      axios.get(
-        `${process.env.REACT_APP_API_URL}/auth/verify`,
-        { headers: { Authorization: `Bearer ${storedToken}` } }
-      )
-        .then((response) => {
-          storeLoginDetails(response.data);
-        })
-        .catch((error) => {    
-          resetLoginDetails();
-        });
-    } else {
-      resetLoginDetails();
-    }
-  }
 
   const resetLoginDetails = () => {
     setIsLoggedIn(false);
