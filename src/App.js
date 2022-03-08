@@ -19,7 +19,7 @@ function App() {
 
   const { isLoggedIn, getToken } = useContext(AuthContext);
 
-    const fetchProjects = () => {
+  const fetchProjects = () => {
 
     const storedToken = getToken();
 
