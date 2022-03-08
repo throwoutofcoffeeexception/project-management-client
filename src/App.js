@@ -19,14 +19,7 @@ function App() {
 
   const { isLoggedIn, getToken } = useContext(AuthContext);
 
-  useEffect( () => {
-    if (isLoggedIn) {
-      fetchProjects();
-    }
-  }, [isLoggedIn]);
-
-
-  const fetchProjects = () => {
+    const fetchProjects = () => {
 
     const storedToken = getToken();
 
@@ -39,6 +32,12 @@ function App() {
       })
       .catch(e => console.log("error getting list of projects...", e));
   }
+
+  useEffect( () => {
+    if (isLoggedIn) {
+      fetchProjects();
+    }
+  }, [isLoggedIn]);
 
   return (
     <div className="App">
